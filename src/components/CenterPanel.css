@@ -1,0 +1,267 @@
+.center-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg);
+    position: relative;
+}
+
+.topology-view {
+    flex: 2;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at center, rgba(11, 12, 16, 0.8) 0%, rgba(0, 0, 0, 1) 100%);
+    perspective: 1000px;
+    /* Enable 3D space */
+}
+
+.topology-placeholder {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+    /* Smooth snapping for parallax */
+    width: 600px;
+    height: 600px;
+    position: relative;
+    justify-content: center;
+}
+
+.pulsing-core {
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite ease-in-out;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transform: translateZ(50px);
+    /* Pop out from background */
+}
+
+.pulsing-core:hover {
+    background-color: #fff;
+    box-shadow: 0 0 40px #fff !important;
+}
+
+.pulsing-core:active {
+    transform: scale(0.9) !important;
+}
+
+.orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px dashed rgba(102, 252, 241, 0.4);
+    animation: spin linear infinite;
+    pointer-events: none;
+}
+
+.ring-1 {
+    width: 120px;
+    height: 120px;
+    animation-duration: 10s;
+}
+
+.ring-2 {
+    width: 25vw;
+    height: 25vw;
+    max-width: 300px;
+    max-height: 300px;
+    border: 1px solid rgba(102, 252, 241, 0.15);
+    animation-duration: 20s;
+    animation-direction: reverse;
+}
+
+.ring-3 {
+    width: 300px;
+    height: 300px;
+    border: 2px dotted rgba(255, 59, 48, 0.5);
+    animation-duration: 35s;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.ring-4-glitch {
+    width: 450px;
+    height: 450px;
+    border: 3px dashed var(--color-text-alert);
+    animation: spin 5s infinite, glitch-ring 0.2s infinite;
+    opacity: 0.8;
+}
+
+@keyframes glitch-ring {
+    0% {
+        transform: rotate(0deg) scale(1) translate(0, 0);
+    }
+
+    25% {
+        transform: rotate(90deg) scale(1.02) translate(5px, -5px);
+        border-color: #fff;
+    }
+
+    50% {
+        transform: rotate(180deg) scale(0.98) translate(-5px, 5px);
+    }
+
+    75% {
+        transform: rotate(270deg) scale(1.05) translate(2px, 2px);
+        border-color: var(--color-accent);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1) translate(0, 0);
+    }
+}
+
+/* SVG Procedural Network */
+.svg-network {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateZ(-30px);
+    /* Push network back slightly */
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.network-link {
+    stroke: rgba(102, 252, 241, 0.15);
+    stroke-width: 1;
+}
+
+.dormant-node {
+    fill: rgba(102, 252, 241, 0.3);
+}
+
+.active-node {
+    fill: #ffffff;
+    filter: drop-shadow(0 0 5px var(--color-accent));
+    animation: pulse-node 0.5s infinite alternate;
+}
+
+@keyframes pulse-node {
+    0% {
+        r: 1.5;
+        opacity: 0.5;
+    }
+
+    100% {
+        r: 3;
+        opacity: 1;
+    }
+}
+
+/* Glass HUD Overlays */
+.hud-corner {
+    position: absolute;
+    color: var(--color-accent);
+    font-size: 0.7rem;
+    font-family: 'Fira Code', monospace;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    pointer-events: none;
+}
+
+.top-left {
+    top: 20px;
+    left: 20px;
+    border-top: 1px solid var(--color-accent);
+    border-left: 1px solid var(--color-accent);
+    padding: 5px 10px;
+}
+
+.top-right {
+    top: 20px;
+    right: 20px;
+    border-top: 1px solid var(--color-accent);
+    border-right: 1px solid var(--color-accent);
+    padding: 5px 10px;
+}
+
+.bottom-left {
+    bottom: 20px;
+    left: 20px;
+    border-bottom: 1px solid var(--color-accent);
+    border-left: 1px solid var(--color-accent);
+    padding: 5px 10px;
+}
+
+.bottom-right {
+    bottom: 20px;
+    right: 20px;
+    border-bottom: 1px solid var(--color-accent);
+    border-right: 1px solid var(--color-accent);
+    padding: 5px 10px;
+}
+
+.hud-data-feed {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.7rem;
+    font-family: 'Fira Code', monospace;
+    text-align: center;
+    line-height: 1.5;
+    pointer-events: none;
+}
+
+
+
+.charts-view {
+    flex: 1;
+    display: flex;
+    padding: 15px;
+    gap: 15px;
+    background-color: var(--color-panel);
+}
+
+.chart-container {
+    flex: 1;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.chart-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--color-text-primary);
+    margin-bottom: 10px;
+}
+
+.chart-title svg {
+    color: var(--color-accent);
+}
+
+.chart-wrapper {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+}

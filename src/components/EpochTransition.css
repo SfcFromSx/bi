@@ -1,0 +1,202 @@
+.epoch-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(11, 12, 16, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.static-noise {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMc/QBAAAACHRSTlMAAAAAAAB/f3+A6/3IAAAAMElEQVQ4y2NgQAX8DIwgwsDAGMTAwMgIxIwgwsDExMjEyMTAxMTIwMTEyMTERFkIAD38BQ0XqkyZAAAAAElFTkSuQmCC') repeat;
+    opacity: 0.15;
+    animation: staticAnim 0.2s steps(4) infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes staticAnim {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: translate(-5%, -5%);
+    }
+
+    20% {
+        transform: translate(-10%, 5%);
+    }
+
+    30% {
+        transform: translate(5%, -10%);
+    }
+
+    40% {
+        transform: translate(-5%, 15%);
+    }
+
+    50% {
+        transform: translate(-10%, 5%);
+    }
+
+    60% {
+        transform: translate(15%, 0);
+    }
+
+    70% {
+        transform: translate(0, 15%);
+    }
+
+    80% {
+        transform: translate(3%, 35%);
+    }
+
+    90% {
+        transform: translate(-10%, 10%);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.2));
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.transition-content {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s ease-in;
+    max-width: 800px;
+    padding: 60px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--color-accent);
+    box-shadow: 0 0 40px rgba(102, 252, 241, 0.1);
+    border-radius: 4px;
+}
+
+.transition-content.visible {
+    opacity: 1;
+}
+
+.epoch-condition {
+    color: var(--color-text-alert);
+    font-size: 1.1rem;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-family: 'Fira Code', monospace;
+    opacity: 0.9;
+}
+
+.epoch-title {
+    font-size: 3rem;
+    color: var(--color-accent);
+    letter-spacing: 10px;
+    margin-bottom: 40px;
+    text-shadow: 0 0 20px var(--color-accent);
+    white-space: nowrap;
+}
+
+.epoch-feature {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    border-left: 3px solid var(--color-accent);
+    padding-left: 20px;
+    text-align: left;
+    width: 100%;
+    white-space: pre-wrap;
+    font-family: 'Fira Code', monospace;
+    background: linear-gradient(90deg, rgba(102, 252, 241, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.typewriter-container {
+    min-height: 120px;
+    margin-bottom: 50px;
+}
+
+.epoch-philosophy {
+    font-size: 1.2rem;
+    color: var(--color-text-primary);
+    line-height: 1.8;
+    letter-spacing: 2px;
+    border-right: 2px solid var(--color-accent);
+    white-space: pre-wrap;
+    overflow: hidden;
+    animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+    from {
+        max-width: 0
+    }
+
+    to {
+        max-width: 100%
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: var(--color-accent);
+    }
+}
+
+.acknowledge-btn {
+    background: transparent;
+    border: 1px solid var(--color-text-alert);
+    color: var(--color-text-alert);
+    padding: 15px 40px;
+    font-family: 'Fira Code', monospace;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 59, 48, 0.2);
+}
+
+.acknowledge-btn:hover {
+    background: rgba(255, 59, 48, 0.1);
+    box-shadow: 0 0 20px rgba(255, 59, 48, 0.5);
+    text-shadow: 0 0 5px var(--color-text-alert);
+}

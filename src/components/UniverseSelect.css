@@ -1,0 +1,256 @@
+.universe-select-screen {
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, #0a0e17 0%, #000000 100%);
+    color: var(--color-text-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 40px;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Background grid effect */
+.universe-select-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(rgba(102, 252, 241, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(102, 252, 241, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.select-header {
+    text-align: center;
+    margin-bottom: 60px;
+    z-index: 1;
+}
+
+.select-header h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+    color: var(--color-text-primary);
+}
+
+.select-header h1 span {
+    font-weight: 700;
+    color: var(--color-accent);
+    text-shadow: var(--glow-accent);
+}
+
+.select-header p {
+    color: var(--color-text-dim);
+    letter-spacing: 1px;
+}
+
+.universe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    z-index: 1;
+}
+
+/* Card Styles */
+.universe-card {
+    background: rgba(11, 12, 16, 0.8);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.universe-card:hover {
+    border-color: var(--color-accent-dim);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(102, 252, 241, 0.1);
+}
+
+/* Scanline effect on hover */
+.universe-card::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(102, 252, 241, 0.1), transparent);
+    transition: top 0.5s ease;
+    pointer-events: none;
+}
+
+.universe-card:hover::after {
+    top: 100%;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 12px;
+}
+
+.card-top h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    color: white;
+}
+
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-text-dim);
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.delete-btn:hover {
+    color: var(--color-text-alert);
+}
+
+.card-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--color-text-dim);
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-family: 'Fira Code', monospace;
+    font-weight: 600;
+}
+
+.card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+}
+
+.created-at {
+    font-size: 0.7rem;
+    color: var(--color-text-dim);
+}
+
+.enter-btn {
+    background: rgba(102, 252, 241, 0.1);
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.enter-btn:hover {
+    background: var(--color-accent);
+    color: #000;
+    box-shadow: var(--glow-accent);
+}
+
+/* Create Card specific */
+.create-card {
+    border: 1px dashed var(--color-border);
+    background: transparent;
+    justify-content: center;
+}
+
+.create-card:hover {
+    border-color: var(--color-accent);
+    border-style: solid;
+}
+
+.create-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+}
+
+.create-icon {
+    color: var(--color-border);
+    transition: color 0.3s;
+}
+
+.create-card:hover .create-icon {
+    color: var(--color-accent);
+}
+
+.create-content input {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--color-border);
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+    font-family: inherit;
+    text-align: center;
+    transition: border-color 0.2s;
+}
+
+.create-content input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.primary-btn {
+    width: 100%;
+    background: var(--color-accent);
+    color: #000;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.primary-btn:hover:not(:disabled) {
+    box-shadow: var(--glow-accent);
+}
+
+.primary-btn:disabled {
+    background: var(--color-border);
+    color: var(--color-text-dim);
+    cursor: not-allowed;
+}

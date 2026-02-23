@@ -1,0 +1,220 @@
+/* ─────────────────────────────────────────────
+   TOP BAR — single row, 3 strict zones
+   LEFT(brand) · CENTER(progress + epoch + time) · RIGHT(entropy + lang)
+───────────────────────────────────────────── */
+.top-bar {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding: 0 24px;
+    background: var(--color-panel);
+    border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+/* ── Zones ─────────────────────────────────── */
+.tb-left {
+    flex: 0 0 auto;
+    padding-right: 24px;
+    border-right: 1px solid var(--color-border);
+}
+
+.tb-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.tb-right {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-left: 24px;
+    border-left: 1px solid var(--color-border);
+}
+
+/* ── Brand ─────────────────────────────────── */
+.tb-brand {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    white-space: nowrap;
+}
+
+/* ── Dual Progress Bars ─────────────────────── */
+.tb-dual-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.tb-dual-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.tb-bar-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    letter-spacing: 1px;
+    width: 10px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.tb-bar-label--n {
+    /* Negentropy bar uses a warmer hue to distinguish from E */
+    color: #e2c96e;
+}
+
+.tb-bar-target {
+    font-size: 0.65rem;
+    color: #5a7a9a;
+    white-space: nowrap;
+    min-width: 52px;
+}
+
+/* ── Progress Track/Fill (shared) ───────────── */
+.tb-progress-track {
+    width: 120px;
+    height: 4px;
+    background: var(--color-border);
+    border-radius: 2px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.tb-progress-track--wide {
+    width: 100%;
+}
+
+.tb-progress-fill {
+    height: 100%;
+    background: var(--color-accent);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.tb-progress-fill--n {
+    background: #e2c96e;
+}
+
+.tb-progress-fill.alert {
+    background: var(--color-text-alert);
+    box-shadow: 0 0 6px var(--color-text-alert);
+}
+
+/* ── Vertical Divider ───────────────────────── */
+.tb-vdivider {
+    width: 1px;
+    height: 28px;
+    background: var(--color-border);
+    flex-shrink: 0;
+}
+
+/* ── Epoch Block ─────────────────────────────── */
+.tb-epoch-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tb-meta-label {
+    font-size: 0.62rem;
+    color: #4a6070;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.tb-epoch-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    text-shadow: 0 0 10px var(--color-accent);
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+/* ── Time Block ──────────────────────────────── */
+.tb-time-block {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tb-icon {
+    color: #3a4a5a;
+    flex-shrink: 0;
+}
+
+.tb-time {
+    font-size: 0.8rem;
+    color: var(--color-text-primary);
+    opacity: 0.7;
+    letter-spacing: 1px;
+}
+
+/* ── Right: Entropy ─────────────────────────── */
+.tb-entropy {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 210px;
+}
+
+.tb-entropy-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tb-entropy-val {
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-primary);
+    opacity: 0.8;
+}
+
+.tb-entropy-val.alert {
+    color: var(--color-text-alert);
+    text-shadow: 0 0 6px var(--color-text-alert);
+    opacity: 1;
+    animation: pulse 1s infinite;
+}
+
+/* ── Lang Button ────────────────────────────── */
+.tb-lang-btn {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    transition: border-color 0.2s, color 0.2s, opacity 0.2s;
+    white-space: nowrap;
+}
+
+.tb-lang-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    opacity: 1;
+}
