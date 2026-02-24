@@ -14,7 +14,7 @@
  *   PUT    /api/preferences         → save global preferences
  */
 
-import { Plugin } from 'vite';
+import type { Plugin } from 'vite';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -41,6 +41,31 @@ function readJSON(filePath: string, fallback: unknown = null): unknown {
 function writeJSON(filePath: string, data: unknown): void {
     ensureDirs();
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+}
+
+function normalizeUniverseName(value: unknown): string {
+    return typeof value === 'string' ? value.trim() : '';
+}
+
+function universeNameKey(name: string): string {
+    return name.toLocaleLowerCase();
+}
+
+function universeNameExists(universes: Array<Record<string, unknown>>, candidate: string): boolean {
+    const target = universeNameKey(candidate);
+    return universes.some((universe) => (
+        typeof universe.name === 'string' && universeNameKey(universe.name.trim()) === target
+    ));
+}
+
+function nextDefaultUniverseName(universes: Array<Record<string, unknown>>): string {
+    let index = universes.length + 1;
+    let candidate = `Universe Ω-${index}`;
+    while (universeNameExists(universes, candidate)) {
+        index += 1;
+        candidate = `Universe Ω-${index}`;
+    }
+    return candidate;
 }
 
 // Parse JSON body from IncomingMessage
@@ -79,10 +104,18 @@ export default function apiPlugin(): Plugin {
                 if (url === '/api/universes' && req.method === 'POST') {
                     const body = await parseBody(req);
                     const universes = (readJSON(UNIVERSES_FILE, []) as Array<Record<string, unknown>>);
+                    const requestedName = normalizeUniverseName(body.name);
+                    const name = requestedName || nextDefaultUniverseName(universes);
+                    if (universeNameExists(universes, name)) {
+                        res.statusCode = 409;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.end(JSON.stringify({ error: 'Universe name already exists. Choose a different designation.' }));
+                        return;
+                    }
                     const id = crypto.randomUUID();
                     const newUniverse = {
                         id,
-                        name: body.name || `Universe Ω-${universes.length + 1}`,
+                        name,
                         createdAt: Date.now(),
                         epoch: 0,
                         energy: 0,

@@ -11,10 +11,11 @@
   --glow-accent: 0 0 8px rgba(102, 252, 241, 0.5);
   --glow-alert: 0 0 8px rgba(255, 59, 48, 0.5);
 
-  --top-bar-h: 6vh;
+  --top-bar-h: 56px;
+  --side-panel-w: 280px;
 
   font-family: 'Fira Code', 'Menlo', 'Monaco', 'Courier New', monospace;
-  font-size: clamp(12px, 0.8vw, 16px);
+  font-size: 14px;
   line-height: 1.5;
   font-weight: 400;
   letter-spacing: 0.3px;

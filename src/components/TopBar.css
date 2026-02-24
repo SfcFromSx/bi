@@ -6,8 +6,7 @@
     display: flex;
     align-items: center;
     height: var(--top-bar-h);
-    min-height: 40px;
-    padding: 0 1.5vw;
+    padding: 0 20px;
     background: var(--color-panel);
     border-bottom: 1px solid var(--color-border);
     flex-shrink: 0;
@@ -17,11 +16,11 @@
 /* ── Zones ─────────────────────────────────── */
 .tb-left {
     flex: 0 0 auto;
-    padding-right: 1.5vw;
+    padding-right: 20px;
     border-right: 1px solid var(--color-border);
     display: flex;
     align-items: center;
-    gap: 1vw;
+    gap: 15px;
 }
 
 .tb-center {
@@ -29,15 +28,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.25vw;
+    gap: 24px;
 }
 
 .tb-right {
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    gap: 1vw;
-    padding-left: 1.5vw;
+    gap: 16px;
+    padding-left: 20px;
     border-left: 1px solid var(--color-border);
 }
 

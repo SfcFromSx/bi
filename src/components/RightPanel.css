@@ -1,6 +1,6 @@
 .right-panel {
-    width: 25vw;
-    min-width: 280px;
+    width: var(--side-panel-w);
+    flex-shrink: 0;
     border-left: 1px solid var(--color-border);
     background-color: var(--color-panel);
     display: flex;

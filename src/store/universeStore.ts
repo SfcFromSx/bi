@@ -52,6 +52,10 @@ export const useUniverseStore = create<UniverseListState>((set, get) => ({
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name }),
         });
+        if (!res.ok) {
+            const payload = await res.json().catch(() => ({} as { error?: string }));
+            throw new Error(payload.error || `Failed to create universe (HTTP ${res.status})`);
+        }
         const newUniverse: UniverseMeta = await res.json();
         // Refresh list
         await get().fetchUniverses();

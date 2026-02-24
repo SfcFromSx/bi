@@ -7,17 +7,22 @@ export default function UniverseSelect() {
     const { universes, loading, error, fetchUniverses, createUniverse, selectUniverse, deleteUniverse } = useUniverseStore();
     const [newName, setNewName] = useState('');
     const [isCreating, setIsCreating] = useState(false);
+    const [createError, setCreateError] = useState<string | null>(null);
 
     useEffect(() => {
         fetchUniverses();
     }, [fetchUniverses]);
 
     const handleCreate = async () => {
-        if (!newName.trim()) return;
+        const name = newName.trim();
+        if (!name) return;
+        setCreateError(null);
         setIsCreating(true);
         try {
-            await createUniverse(newName);
+            await createUniverse(name);
             setNewName('');
+        } catch (e) {
+            setCreateError((e as Error).message);
         } finally {
             setIsCreating(false);
         }
@@ -54,6 +59,7 @@ export default function UniverseSelect() {
                         <button className="primary-btn" onClick={handleCreate} disabled={!newName.trim() || isCreating}>
                             INITIALIZE NEW BIG BANG
                         </button>
+                        {createError && <p className="create-error">{createError}</p>}
                     </div>
                 </div>
 

@@ -7,7 +7,7 @@
 }
 
 .topology-view {
-    flex: 2;
+    flex: 1.5;
     border-bottom: 1px solid var(--color-border);
     display: flex;
     align-items: center;
@@ -16,7 +16,6 @@
     overflow: hidden;
     background: radial-gradient(circle at center, rgba(11, 12, 16, 0.8) 0%, rgba(0, 0, 0, 1) 100%);
     perspective: 1000px;
-    /* Enable 3D space */
 }
 
 .topology-placeholder {
@@ -24,21 +23,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2vh;
+    gap: 20px;
     transform-style: preserve-3d;
     transition: transform 0.1s ease-out;
-    /* Smooth snapping for parallax */
-    width: 80vh;
-    height: 80vh;
-    max-width: 90%;
-    max-height: 90%;
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    max-height: 600px;
+    aspect-ratio: 1/1;
     position: relative;
     justify-content: center;
 }
 
 .pulsing-core {
-    width: 3rem;
-    height: 3rem;
+    width: 44px;
+    height: 44px;
     background-color: var(--color-accent);
     border-radius: 50%;
     animation: pulse 2s infinite ease-in-out;
@@ -50,7 +49,6 @@
     justify-content: center;
     z-index: 10;
     transform: translateZ(50px);
-    /* Pop out from background */
 }
 
 .pulsing-core:hover {
@@ -71,24 +69,22 @@
 }
 
 .ring-1 {
-    width: 10rem;
-    height: 10rem;
+    width: 140px;
+    height: 140px;
     animation-duration: 10s;
 }
 
 .ring-2 {
-    width: 25vw;
-    height: 25vw;
-    max-width: 40vh;
-    max-height: 40vh;
+    width: 280px;
+    height: 280px;
     border: 1px solid rgba(102, 252, 241, 0.15);
     animation-duration: 20s;
     animation-direction: reverse;
 }
 
 .ring-3 {
-    width: 35vh;
-    height: 35vh;
+    width: 420px;
+    height: 420px;
     border: 2px dotted rgba(255, 59, 48, 0.5);
     animation-duration: 35s;
 }
@@ -100,8 +96,8 @@
 }
 
 .ring-4-glitch {
-    width: 50vh;
-    height: 50vh;
+    width: 560px;
+    height: 560px;
     border: 3px dashed var(--color-text-alert);
     animation: spin 5s infinite, glitch-ring 0.2s infinite;
     opacity: 0.8;
