@@ -1,73 +1,73 @@
-# React + TypeScript + Vite
+# Genesis Dashboard (创世面板)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](https://vitejs.dev/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-Currently, two official plugins are available:
+A hard sci-fi incremental/idle game built as a high-tech Business Intelligence (BI) monitoring dashboard. You are the Architect, observing and intervening in a simulated universe while battling the inevitable heat death (Entropy).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌌 The Premise
 
-## React Compiler
+In *Genesis Dashboard*, you don't just "play" a game; you monitor a spacetime continuum. Using a minimalist, data-driven interface, you manage resources, adjust fundamental physical constants, and guide civilizations through the "Great Filters" of existence.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Core Mechanics
+- **Resource Management**: Balance **Energy (E)**, **Negentropy (N)**, and **Intervention (I)**.
+- **Entropy Struggle**: Every action and the passage of time increases **Entropy (S)**. If it reaches maximum, the universe suffers "Heat Death" and must be reset.
+- **Prestige System**: Collapse your universe into **Akashic Records (A)** to unlock permanent cross-dimensional upgrades.
+- **Meta-Narrative**: As your simulation gains awareness, the boundary between the game and your reality begins to blur.
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Framework**: React 19 + TypeScript
+- **Bundler**: Vite
+- **State Management**: Zustand (with local persistence)
+- **Visuals**: Vanilla CSS (Neon-Noir aesthetic) + Lucide Icons
+- **Data Visualization**: Recharts (for real-time resource flux monitoring)
+- **Persistence**: Custom Vite API Plugin (local JSON storage in `./data/`)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🚀 Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prerequisites
+- Node.js (Latest LTS recommended)
+- npm or yarn
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/SfcFromSx/bi.git
+   cd bi/v2
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**:
+   ```bash
+   npm run dev -- --port 8888
+   ```
+
+4. **Open your browser**:
+   Navigate to `http://localhost:8888` to begin the simulation.
+
+## 📂 Project Structure
+
+```text
+├── data/               # Local JSON storage for universes and saves
+├── src/
+│   ├── components/     # UI Panels (TopBar, LeftPanel, CenterPanel, RightPanel)
+│   ├── store/          # Zustand game logic and universe management
+│   ├── i18n/           # Bilingual support (EN/ZH)
+│   └── assets/         # Static assets and global styles
+├── vite-api-plugin.ts  # Custom plugin for local file persistence
+└── package.json
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📜 License
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+*"[SYS] INITIALIZED. Awaiting Big Bang."*
