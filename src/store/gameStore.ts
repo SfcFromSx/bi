@@ -87,9 +87,9 @@ export interface GameState {
     saveGameState: (immediate?: boolean) => void;
 }
 
-// Simple debouncer for saves
-let saveTimeout: ReturnType<typeof setTimeout> | null = null;
-
+// Simple throttling for saves
+let lastDiskSaveTime = 0;
+const DISK_SAVE_THROTTLE_MS = 5000;
 
 export const useGameStore = create<GameState>()((set, get) => ({
     id: null,
@@ -548,6 +548,13 @@ export const useGameStore = create<GameState>()((set, get) => ({
         const state = get();
         if (!state.id) return;
 
+        const now = Date.now();
+        if (!immediate && (now - lastDiskSaveTime < DISK_SAVE_THROTTLE_MS)) {
+            return;
+        }
+
+        lastDiskSaveTime = now;
+
         const payload = {
             ticks: state.ticks,
             epoch: state.epoch,
@@ -565,28 +572,10 @@ export const useGameStore = create<GameState>()((set, get) => ({
             logMessages: state.logMessages,
         };
 
-        const performSave = () => {
-            fetch(`/api/saves/${state.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(console.error);
-        };
-
-        if (immediate) {
-            if (saveTimeout) {
-                clearTimeout(saveTimeout);
-                saveTimeout = null;
-            }
-            performSave();
-            return;
-        }
-
-        // Debounce actual disk writes
-        if (saveTimeout) clearTimeout(saveTimeout);
-        saveTimeout = setTimeout(() => {
-            saveTimeout = null;
-            performSave();
-        }, 5000);
+        fetch(`/api/saves/${state.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).catch(console.error);
     }
 }));
