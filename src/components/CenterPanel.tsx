@@ -24,11 +24,14 @@ export default function CenterPanel() {
     // Collect chart data every 10 ticks
     useEffect(() => {
         if (ticks % 10 === 0) {
-            setData(prev => {
-                const newData = [...prev, { time: ticks, energyRate, entropyRate }];
-                if (newData.length > 50) return newData.slice(-50);
-                return newData;
-            });
+            const timeoutId = setTimeout(() => {
+                setData(prev => {
+                    const newData = [...prev, { time: ticks, energyRate, entropyRate }];
+                    if (newData.length > 50) return newData.slice(-50);
+                    return newData;
+                });
+            }, 0);
+            return () => clearTimeout(timeoutId);
         }
     }, [ticks, energyRate, entropyRate]);
 

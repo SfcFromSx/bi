@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { useGameStore } from './gameStore';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 export interface UniverseMeta {
@@ -70,6 +71,7 @@ export const useUniverseStore = create<UniverseListState>((set, get) => ({
     },
 
     exitUniverse: () => {
+        useGameStore.getState().saveGameState(true);
         set({ activeUniverseId: null });
     },
 }));

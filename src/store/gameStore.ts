@@ -84,7 +84,7 @@ export interface GameState {
 
     // Save System Ops
     loadGameState: (id: string) => Promise<void>;
-    saveGameState: () => void;
+    saveGameState: (immediate?: boolean) => void;
 }
 
 // Simple debouncer for saves
@@ -376,7 +376,10 @@ export const useGameStore = create<GameState>()((set, get) => ({
         if (state.akashicRecords >= cost) {
             return {
                 akashicRecords: state.akashicRecords - cost,
-                prestige: { ...state.prestige, [field]: (state.prestige as any)[field] + 1 }
+                prestige: { 
+                    ...state.prestige, 
+                    [field]: state.prestige[field as keyof typeof state.prestige] + 1 
+                }
             };
         }
         return state;
@@ -541,33 +544,49 @@ export const useGameStore = create<GameState>()((set, get) => ({
         }
     },
 
-    saveGameState: () => {
+    saveGameState: (immediate = false) => {
         const state = get();
         if (!state.id) return;
 
-        // Debounce actual disk writes to avoid saturating Node
-        if (saveTimeout) clearTimeout(saveTimeout);
-        saveTimeout = setTimeout(() => {
-            const payload = {
-                ticks: state.ticks,
-                epoch: state.epoch,
-                energy: state.energy,
-                entropy: state.entropy,
-                negentropy: state.negentropy,
-                intervention: state.intervention,
-                akashicRecords: state.akashicRecords,
-                upgrades: state.upgrades,
-                prestige: state.prestige,
-                simulationAwareness: state.simulationAwareness,
-                isOverclocked: state.isOverclocked,
-                overclockTimer: state.overclockTimer,
-                lastSaveTimestamp: state.lastSaveTimestamp,
-            };
+        const payload = {
+            ticks: state.ticks,
+            epoch: state.epoch,
+            energy: state.energy,
+            entropy: state.entropy,
+            negentropy: state.negentropy,
+            intervention: state.intervention,
+            akashicRecords: state.akashicRecords,
+            upgrades: state.upgrades,
+            prestige: state.prestige,
+            simulationAwareness: state.simulationAwareness,
+            isOverclocked: state.isOverclocked,
+            overclockTimer: state.overclockTimer,
+            lastSaveTimestamp: state.lastSaveTimestamp,
+            logMessages: state.logMessages,
+        };
+
+        const performSave = () => {
             fetch(`/api/saves/${state.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             }).catch(console.error);
-        }, 5000); // Auto-save to disk every 5s max
+        };
+
+        if (immediate) {
+            if (saveTimeout) {
+                clearTimeout(saveTimeout);
+                saveTimeout = null;
+            }
+            performSave();
+            return;
+        }
+
+        // Debounce actual disk writes
+        if (saveTimeout) clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(() => {
+            saveTimeout = null;
+            performSave();
+        }, 5000);
     }
 }));
