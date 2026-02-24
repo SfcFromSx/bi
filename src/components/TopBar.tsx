@@ -1,10 +1,12 @@
 import { useGameStore, MAX_ENTROPY } from '../store/gameStore';
+import { useUniverseStore } from '../store/universeStore';
 import { useI18nStore } from '../i18n/store';
-import { Activity, Clock, Globe } from 'lucide-react';
+import { Activity, Clock, Globe, Volume2, VolumeX, LogOut } from 'lucide-react';
 import './TopBar.css';
 
 export default function TopBar() {
-    const { ticks, epoch, entropy, energy, negentropy } = useGameStore();
+    const { ticks, epoch, entropy, energy, negentropy, soundEnabled, toggleSound } = useGameStore();
+    const { exitUniverse } = useUniverseStore();
     const { t, toggleLang } = useI18nStore();
 
     const entropyPercent = (entropy / MAX_ENTROPY) * 100;
@@ -34,6 +36,9 @@ export default function TopBar() {
         <div className="top-bar">
             {/* LEFT: Brand */}
             <div className="tb-left">
+                <button className="tb-exit-btn" onClick={exitUniverse} title="Exit to Multiverse">
+                    <LogOut size={16} />
+                </button>
                 <span className="tb-brand glitch-effect" data-text={t('v')}>{t('v')}</span>
             </div>
 
@@ -73,6 +78,14 @@ export default function TopBar() {
                     <Clock size={13} className="tb-icon" />
                     <span className="tb-time">{timeFormatted}</span>
                 </div>
+
+                {/* Simulation Integrity (Awareness inverted) */}
+                <div className="tb-integrity-block">
+                    <span className="tb-meta-label">INTEGRITY</span>
+                    <div className="tb-integrity-bar">
+                        <div className="tb-integrity-fill" style={{ width: `${100 - useGameStore.getState().simulationAwareness}%` }}></div>
+                    </div>
+                </div>
             </div>
 
             {/* RIGHT: Entropy + Lang toggle */}
@@ -91,6 +104,9 @@ export default function TopBar() {
                 </div>
                 <button className="tb-lang-btn" onClick={toggleLang}>
                     <Globe size={13} /> {t('langToggle')}
+                </button>
+                <button className={`tb-lang-btn ${soundEnabled ? 'active' : ''}`} onClick={toggleSound} title="Toggle Ambient Drone">
+                    {soundEnabled ? <Volume2 size={13} /> : <VolumeX size={13} />}
                 </button>
             </div>
         </div>

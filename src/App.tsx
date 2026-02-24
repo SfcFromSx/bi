@@ -8,6 +8,7 @@ import CenterPanel from './components/CenterPanel';
 import RightPanel from './components/RightPanel';
 import EpochTransition from './components/EpochTransition';
 import UniverseSelect from './components/UniverseSelect';
+import SoundEngine from './components/SoundEngine';
 import './index.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
   const isTransitioning = useGameStore(state => state.isTransitioning);
   const loadGameState = useGameStore(state => state.loadGameState);
   const gameLoading = useGameStore(state => state.loading);
+  const soundEnabled = useGameStore(state => state.soundEnabled);
 
   // Initialize preferences on boot
   useEffect(() => {
@@ -63,6 +65,7 @@ function App() {
         </div>
       </div>
       {isTransitioning && <EpochTransition />}
+      <SoundEngine enabled={soundEnabled} />
     </>
   );
 }

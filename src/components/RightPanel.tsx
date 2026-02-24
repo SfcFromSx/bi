@@ -1,6 +1,6 @@
 import { useGameStore, MAX_ENTROPY } from '../store/gameStore';
 import { useI18nStore } from '../i18n/store';
-import { Cpu, Fingerprint, ShieldAlert, Target } from 'lucide-react';
+import { Cpu, Fingerprint, ShieldAlert, Target, Activity } from 'lucide-react';
 import './RightPanel.css';
 
 export default function RightPanel() {
@@ -151,36 +151,94 @@ export default function RightPanel() {
             <div className="upgrades-section">
                 <h3 className="section-title">{t('overrides')}</h3>
 
-                <div className={`upgrade-capsule ${state.energy < state.getGravityCost() ? 'disabled' : ''}`} data-tooltip={t('tipGravity')}>
-                    <div className="upg-capsule-info">
-                        <span className="upg-title">{t('gravity')}</span>
-                        <span className="upg-lvl">Lv {state.upgrades.gravitationalConstant}</span>
+                <div className="scroll-container">
+                    <div className={`upgrade-capsule ${state.energy < state.getGravityCost() ? 'disabled' : ''}`} data-tooltip={t('tipGravity')}>
+                        <div className="upg-capsule-info">
+                            <span className="upg-title">{t('gravity')}</span>
+                            <span className="upg-lvl">Lv {state.upgrades.gravitationalConstant}</span>
+                        </div>
+                        <button disabled={state.energy < state.getGravityCost()} onClick={state.upgradeGravity}>
+                            {formatE(state.getGravityCost())} E
+                        </button>
                     </div>
-                    <button disabled={state.energy < state.getGravityCost()} onClick={state.upgradeGravity}>
-                        {formatE(state.getGravityCost())} E
-                    </button>
-                </div>
 
-                <div className={`upgrade-capsule ${state.energy < state.getCarbonCost().energy || state.negentropy < state.getCarbonCost().negentropy ? 'disabled' : ''}`} data-tooltip={t('tipCarbon')}>
-                    <div className="upg-capsule-info">
-                        <span className="upg-title">{t('carbon')}</span>
-                        <span className="upg-lvl">Lv {state.upgrades.carbonModules}</span>
+                    <div className={`upgrade-capsule ${state.energy < state.getCarbonCost().energy || state.negentropy < state.getCarbonCost().negentropy ? 'disabled' : ''}`} data-tooltip={t('tipCarbon')}>
+                        <div className="upg-capsule-info">
+                            <span className="upg-title">{t('carbon')}</span>
+                            <span className="upg-lvl">Lv {state.upgrades.carbonModules}</span>
+                        </div>
+                        <button disabled={state.energy < state.getCarbonCost().energy || state.negentropy < state.getCarbonCost().negentropy} onClick={state.upgradeCarbon}>
+                            {formatE(state.getCarbonCost().energy)}E / {state.getCarbonCost().negentropy}N
+                        </button>
                     </div>
-                    <button disabled={state.energy < state.getCarbonCost().energy || state.negentropy < state.getCarbonCost().negentropy} onClick={state.upgradeCarbon}>
-                        {formatE(state.getCarbonCost().energy)}E / {state.getCarbonCost().negentropy}N
-                    </button>
-                </div>
 
-                <div className={`upgrade-capsule ${state.energy < state.getNeuralCost().energy || state.negentropy < state.getNeuralCost().negentropy ? 'disabled' : ''}`} data-tooltip={t('tipNeural')}>
-                    <div className="upg-capsule-info">
-                        <span className="upg-title">{t('neural')}</span>
-                        <span className="upg-lvl">Lv {state.upgrades.neuralProcessing}</span>
+                    <div className={`upgrade-capsule ${state.energy < state.getNeuralCost().energy || state.negentropy < state.getNeuralCost().negentropy ? 'disabled' : ''}`} data-tooltip={t('tipNeural')}>
+                        <div className="upg-capsule-info">
+                            <span className="upg-title">{t('neural')}</span>
+                            <span className="upg-lvl">Lv {state.upgrades.neuralProcessing}</span>
+                        </div>
+                        <button disabled={state.energy < state.getNeuralCost().energy || state.negentropy < state.getNeuralCost().negentropy} onClick={state.upgradeNeural}>
+                            {formatE(state.getNeuralCost().energy)}E / {state.getNeuralCost().negentropy}N
+                        </button>
                     </div>
-                    <button disabled={state.energy < state.getNeuralCost().energy || state.negentropy < state.getNeuralCost().negentropy} onClick={state.upgradeNeural}>
-                        {formatE(state.getNeuralCost().energy)}E / {state.getNeuralCost().negentropy}N
-                    </button>
+
+                    {/* Akashic Archives - Only show if player has A or has prestiged once */}
+                    {(state.akashicRecords > 0 || state.prestige.crossDimensional > 0) && (
+                        <div className="prestige-upgrades">
+                            <h3 className="section-title" style={{ color: 'var(--color-accent)', marginTop: '20px' }}>{t('akashicArchives')}</h3>
+
+                            <div className={`upgrade-capsule prestige ${state.akashicRecords < state.getPrestigeCosts().cross ? 'disabled' : ''}`} data-tooltip={t('crossDirDesc')}>
+                                <div className="upg-capsule-info">
+                                    <span className="upg-title">{t('crossDir')}</span>
+                                    <span className="upg-lvl">Lv {state.prestige.crossDimensional}</span>
+                                </div>
+                                <button disabled={state.akashicRecords < state.getPrestigeCosts().cross} onClick={() => state.buyPrestigeUpgrade('cross')}>
+                                    {state.getPrestigeCosts().cross} A
+                                </button>
+                            </div>
+
+                            <div className={`upgrade-capsule prestige ${state.akashicRecords < state.getPrestigeCosts().observer ? 'disabled' : ''}`} data-tooltip={t('observerDesc')}>
+                                <div className="upg-capsule-info">
+                                    <span className="upg-title">{t('observer')}</span>
+                                    <span className="upg-lvl">Lv {state.prestige.observerParadox}</span>
+                                </div>
+                                <button disabled={state.akashicRecords < state.getPrestigeCosts().observer} onClick={() => state.buyPrestigeUpgrade('observer')}>
+                                    {state.getPrestigeCosts().observer} A
+                                </button>
+                            </div>
+
+                            <div className={`upgrade-capsule prestige ${state.akashicRecords < state.getPrestigeCosts().strike ? 'disabled' : ''}`} data-tooltip={t('strikeDesc')}>
+                                <div className="upg-capsule-info">
+                                    <span className="upg-title">{t('strike')}</span>
+                                    <span className="upg-lvl">Lv {state.prestige.dimensionalStrike}</span>
+                                </div>
+                                <button disabled={state.akashicRecords < state.getPrestigeCosts().strike} onClick={() => state.buyPrestigeUpgrade('strike')}>
+                                    {state.getPrestigeCosts().strike} A
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Manual Prestige / Big Crunch */}
+                    {(Math.cbrt(state.energy) + Math.pow(state.epoch, 2)) >= 1 && (
+                        <div className="prestige-reset-container" style={{ marginTop: 'auto', padding: '10px 0' }}>
+                            <button
+                                className="action-btn prestige-btn"
+                                onClick={() => {
+                                    if (confirm(t('confirmCrunch') || 'Initiate Big Crunch? Current progress will be lost.')) {
+                                        state.prestigeReset();
+                                    }
+                                }}
+                                style={{ borderColor: 'var(--color-text-alert)', color: 'var(--color-text-alert)', background: 'rgba(255, 59, 48, 0.1)' }}
+                            >
+                                <Activity size={14} />
+                                <span>{t('bigCrunch')} [+{Math.floor(Math.cbrt(state.energy) + Math.pow(state.epoch, 2))} A]</span>
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
     );
 }
+

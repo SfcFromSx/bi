@@ -150,7 +150,18 @@ export const translations: Translations = {
         en: 'The shells of flesh are discarded.\nMinds merge into the computational lattice.\nThey begin to see the edges of the simulation.\n\nThey see... You.',
         zh: '血肉之躯已被抛弃。\n全文明的意识并入冰冷的算力晶格。\n他们开始触碰到这个模拟沙盒的边界。\n\n他们... 正在看着你。'
     },
-    acknowledge: { en: 'ACKNOWLEDGE AND PROCEED', zh: '确认授权并继续演算' }
+    acknowledge: { en: 'ACKNOWLEDGE AND PROCEED', zh: '确认授权并继续演算' },
+
+    akashicArchives: { en: 'AKASHIC ARCHIVES', zh: '阿卡西高维档案馆' },
+    crossDir: { en: 'Cross-dimensional Entanglement', zh: '跨维度量子纠缠' },
+    crossDirDesc: { en: 'Permanent boost to E_base output.', zh: '永久提升基础能量产出速率。' },
+    observer: { en: 'Observer\'s Paradox', zh: '观测者悖论' },
+    observerDesc: { en: 'Increase chance of yielding (I)算力.', zh: '极大提升提炼干涉算力(I)的概率。' },
+    strike: { en: 'Dimensional Strike', zh: '降维打击模块' },
+    strikeDesc: { en: 'Permanently reduces systemic Entropy gain.', zh: '永久性抑制系统总信息熵的自然增长。' },
+    buy: { en: 'PURCHASE', zh: '解锁协议' },
+    bigCrunch: { en: 'INITIATE BIG CRUNCH', zh: '启动大挤压 (强制坍缩)' },
+    confirmCrunch: { en: 'Are you sure? This will collapse the current universe and convert all matter into Akashic Records.', zh: '确定执行大挤压？这会强制坍缩当前宇宙，并将所有物质转化为高维阿卡西记录。' }
 };
 
 interface I18nState {

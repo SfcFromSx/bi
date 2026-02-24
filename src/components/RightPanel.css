@@ -235,3 +235,32 @@
 .upgrade-capsule button:disabled {
     cursor: not-allowed;
 }
+
+.scroll-container {
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 4px;
+}
+
+.upgrade-capsule.prestige {
+    border-color: rgba(102, 252, 241, 0.2);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(102, 252, 241, 0.05) 100%);
+}
+
+.upgrade-capsule.prestige:hover:not(.disabled) {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 10px rgba(102, 252, 241, 0.1);
+}
+
+.upgrade-capsule.prestige button {
+    border-color: var(--color-accent-dim);
+    color: var(--color-accent);
+}
+
+.upgrade-capsule.prestige button:hover:not(:disabled) {
+    background: var(--color-accent-dim);
+    color: var(--color-accent);
+}

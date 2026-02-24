@@ -18,6 +18,9 @@
     flex: 0 0 auto;
     padding-right: 24px;
     border-right: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 .tb-center {
@@ -35,6 +38,29 @@
     gap: 16px;
     padding-left: 24px;
     border-left: 1px solid var(--color-border);
+}
+
+/* ── Exit Button ───────────────────────────── */
+.tb-exit-btn {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.2s;
+    border-radius: 2px;
+}
+
+.tb-exit-btn:hover {
+    border-color: var(--color-text-alert);
+    color: var(--color-text-alert);
+    opacity: 1;
+    background: rgba(255, 100, 100, 0.05);
 }
 
 /* ── Brand ─────────────────────────────────── */
@@ -217,4 +243,33 @@
     border-color: var(--color-accent);
     color: var(--color-accent);
     opacity: 1;
+}
+
+.tb-lang-btn.active {
+    border-color: var(--color-accent);
+    background: var(--color-accent-dim);
+    color: var(--color-accent);
+    opacity: 1;
+    box-shadow: 0 0 10px var(--color-accent-dim);
+}
+
+.tb-integrity-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 80px;
+}
+
+.tb-integrity-bar {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 1px;
+    overflow: hidden;
+}
+
+.tb-integrity-fill {
+    height: 100%;
+    background: var(--color-accent);
+    box-shadow: 0 0 10px var(--color-accent);
+    transition: width 0.5s ease;
 }

@@ -58,8 +58,11 @@ export default function CenterPanel() {
         }
     }
 
+    const activeEvent = useGameStore(state => state.activeEvent);
+    const awareness = useGameStore(state => state.simulationAwareness);
+
     return (
-        <div className="center-panel">
+        <div className={`center-panel ${activeEvent ? 'crisis-active' : ''} ${awareness > 80 ? 'hyper-glitch' : ''}`}>
             <div className="panel-header">
                 <Network size={18} className="icon" />
                 <span>OBSERVATION WINDOW</span>
@@ -76,14 +79,20 @@ export default function CenterPanel() {
                     <div className="absolute bottom-4 right-4 flex gap-2 items-center">DR <Crosshair size={12} /></div>
                 </div>
 
+                {activeEvent && (
+                    <div className="crisis-warning-overlay absolute inset-0 pointer-events-none z-0">
+                        <div className="warning-scanner"></div>
+                    </div>
+                )}
+
                 <div className="tracking-info absolute bottom-12 left-1/2 -translate-x-1/2 text-xs font-mono text-gray-500 text-center pointer-events-none z-10">
                     [ SYS.TRACKING ]<br />
-                    ANG_X: 0.00°<br />
-                    ANG_Y: 0.00°<br />
+                    ANG_X: {(Math.sin(ticks / 50) * 2).toFixed(2)}°<br />
+                    ANG_Y: {(Math.cos(ticks / 40) * 2).toFixed(2)}°<br />
                     ENT_FLUX: {entropyRate.toFixed(1)} /s
                 </div>
 
-                <div className="topology-placeholder">
+                <div className="topology-placeholder" style={{ transform: `rotateY(${Math.sin(ticks / 100) * 10}deg) rotateX(${Math.cos(ticks / 100) * 5}deg)` }}>
                     {/* Render procedural SVG network behind the core if epoch >= 2 */}
                     {epoch >= 2 && (
                         <svg className="svg-network pointer-events-none" preserveAspectRatio="none">
@@ -91,18 +100,20 @@ export default function CenterPanel() {
                         </svg>
                     )}
 
-                    <div className="pulsing-core cursor-pointer"
+                    <div className={`pulsing-core cursor-pointer ${activeEvent ? 'core-panic' : ''}`}
                         onClick={manualCompress}
                         title={t('compressTooltip')}
                         style={{
                             transform: `scale(${1 + Math.log10(1 + energy) * 0.1})`,
-                            boxShadow: `0 0 ${10 + Math.log10(1 + energy) * 2}px var(--color-accent)`
+                            boxShadow: `0 0 ${10 + Math.log10(1 + energy) * 2}px ${activeEvent ? 'var(--color-text-alert)' : 'var(--color-accent)'}`
                         }}
                     >
                         {epoch >= 1 && <div className="orbit-ring ring-1 pointer-events-none"></div>}
                         {epoch >= 2 && <div className="orbit-ring ring-2 pointer-events-none"></div>}
                         {epoch >= 3 && <div className="orbit-ring ring-3 pointer-events-none"></div>}
                         {epoch >= 4 && <div className="orbit-ring ring-4-glitch pointer-events-none"></div>}
+
+                        {awareness > 90 && <div className="core-ghost"></div>}
                     </div>
                 </div>
             </div>

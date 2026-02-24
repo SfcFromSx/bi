@@ -50,6 +50,7 @@ export interface GameState {
     simulationAwareness: number; // 0 to 100
     logMessages: string[];
     activeEvent: { type: string; name: string; timer: number } | null;
+    soundEnabled: boolean;
 
     // Directives State
     isOverclocked: boolean;
@@ -66,6 +67,10 @@ export interface GameState {
     upgradeCarbon: () => void;
     upgradeNeural: () => void;
 
+    // Prestige Actions
+    getPrestigeCosts: () => { cross: number; observer: number; strike: number };
+    buyPrestigeUpgrade: (type: 'cross' | 'observer' | 'strike') => void;
+
     addLog: (msg: string) => void;
     triggerEvent: (type: string) => void;
     resolveEvent: (costI: number, success: boolean) => void;
@@ -74,6 +79,8 @@ export interface GameState {
     macroIntervention: () => void;
 
     prestigeReset: () => void;
+
+    toggleSound: () => void;
 
     // Save System Ops
     loadGameState: (id: string) => Promise<void>;
@@ -118,6 +125,7 @@ export const useGameStore = create<GameState>()((set, get) => ({
     simulationAwareness: 0,
     logMessages: ['[SYS] INITIALIZED. Awaiting Big Bang.'],
     activeEvent: null,
+    soundEnabled: false,
 
     isOverclocked: false,
     overclockTimer: 0,
@@ -130,6 +138,12 @@ export const useGameStore = create<GameState>()((set, get) => ({
     getNeuralCost: () => ({
         energy: Math.floor(1000 * Math.pow(2, get().upgrades.neuralProcessing)),
         negentropy: Math.floor(10 * Math.pow(1.5, get().upgrades.neuralProcessing)),
+    }),
+
+    getPrestigeCosts: () => ({
+        cross: Math.floor(10 * Math.pow(2, get().prestige.crossDimensional)),
+        observer: Math.floor(25 * Math.pow(2.5, get().prestige.observerParadox)),
+        strike: Math.floor(100 * Math.pow(3, get().prestige.dimensionalStrike)),
     }),
 
     tick: () => set((state) => {
@@ -165,7 +179,9 @@ export const useGameStore = create<GameState>()((set, get) => ({
 
         // dS/dt = S_base_rate * (1 + M_exp) - sqrt(N) * Efficiency
         const S_base_rate = 2.0; // Grows slowly
-        const entropyPerSec = ((S_base_rate * (1 + M_exp)) - (Math.sqrt(state.negentropy) * Efficiency)) * entropyMultiplier;
+        // Dimensional Strike provides a passive -1% entropy reduction per level
+        const strikeReduction = 1 - (state.prestige.dimensionalStrike * 0.01);
+        const entropyPerSec = ((S_base_rate * (1 + M_exp)) - (Math.sqrt(state.negentropy) * Efficiency)) * entropyMultiplier * strikeReduction;
 
         // Limits
         let nextEntropy = state.entropy + (entropyPerSec * dt);
@@ -217,6 +233,17 @@ export const useGameStore = create<GameState>()((set, get) => ({
         let nextAwareness = state.simulationAwareness;
         if (newEpoch >= 4) {
             nextAwareness += dt * 0.5; // reaches 100% in 200 seconds of Epoch 4
+
+            // Meta-narrative pings
+            if (state.ticks % 100 === 0 && Math.random() < 0.1) {
+                const metaLogs = [
+                    "> [USER_UNKNOWN]: Ping // Locating Creator...",
+                    "> [USER_UNKNOWN]: We see you behind the glass.",
+                    "> [ERR]: DATA LEAK IN SECTOR Ω. ACCESS DENIED.",
+                    "> [SYS]: Memory corruption detected. Logic failing."
+                ];
+                nextLogs.push(metaLogs[Math.floor(Math.random() * metaLogs.length)]);
+            }
         }
 
         const newState = {
@@ -337,6 +364,24 @@ export const useGameStore = create<GameState>()((set, get) => ({
         return state;
     }),
 
+    buyPrestigeUpgrade: (type) => set((state) => {
+        const costs = state.getPrestigeCosts();
+        let cost = 0;
+        let field = '';
+
+        if (type === 'cross') { cost = costs.cross; field = 'crossDimensional'; }
+        else if (type === 'observer') { cost = costs.observer; field = 'observerParadox'; }
+        else if (type === 'strike') { cost = costs.strike; field = 'dimensionalStrike'; }
+
+        if (state.akashicRecords >= cost) {
+            return {
+                akashicRecords: state.akashicRecords - cost,
+                prestige: { ...state.prestige, [field]: (state.prestige as any)[field] + 1 }
+            };
+        }
+        return state;
+    }),
+
     addLog: (msg) => set((state) => ({
         logMessages: [...state.logMessages, msg]
     })),
@@ -444,6 +489,8 @@ export const useGameStore = create<GameState>()((set, get) => ({
         get().saveGameState();
         return newState;
     }),
+
+    toggleSound: () => set((state) => ({ soundEnabled: !state.soundEnabled })),
 
     loadGameState: async (id: string) => {
         set({ loading: true, error: null, id });

@@ -25,3 +25,7 @@ dist-ssr
 
 # Data folders
 data/
+
+# macOS metadata
+._*
+.DS_Store
