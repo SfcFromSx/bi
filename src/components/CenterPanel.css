@@ -24,19 +24,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 2vh;
     transform-style: preserve-3d;
     transition: transform 0.1s ease-out;
     /* Smooth snapping for parallax */
-    width: 600px;
-    height: 600px;
+    width: 80vh;
+    height: 80vh;
+    max-width: 90%;
+    max-height: 90%;
     position: relative;
     justify-content: center;
 }
 
 .pulsing-core {
-    width: 40px;
-    height: 40px;
+    width: 3rem;
+    height: 3rem;
     background-color: var(--color-accent);
     border-radius: 50%;
     animation: pulse 2s infinite ease-in-out;
@@ -69,24 +71,24 @@
 }
 
 .ring-1 {
-    width: 120px;
-    height: 120px;
+    width: 10rem;
+    height: 10rem;
     animation-duration: 10s;
 }
 
 .ring-2 {
     width: 25vw;
     height: 25vw;
-    max-width: 300px;
-    max-height: 300px;
+    max-width: 40vh;
+    max-height: 40vh;
     border: 1px solid rgba(102, 252, 241, 0.15);
     animation-duration: 20s;
     animation-direction: reverse;
 }
 
 .ring-3 {
-    width: 300px;
-    height: 300px;
+    width: 35vh;
+    height: 35vh;
     border: 2px dotted rgba(255, 59, 48, 0.5);
     animation-duration: 35s;
 }
@@ -98,8 +100,8 @@
 }
 
 .ring-4-glitch {
-    width: 450px;
-    height: 450px;
+    width: 50vh;
+    height: 50vh;
     border: 3px dashed var(--color-text-alert);
     animation: spin 5s infinite, glitch-ring 0.2s infinite;
     opacity: 0.8;
@@ -265,45 +267,45 @@
     opacity: 0.5;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 0.4vw;
     pointer-events: none;
 }
 
 .top-left {
-    top: 20px;
-    left: 20px;
+    top: 1.5rem;
+    left: 1.5rem;
     border-top: 1px solid var(--color-accent);
     border-left: 1px solid var(--color-accent);
-    padding: 5px 10px;
+    padding: 0.4rem 0.8rem;
 }
 
 .top-right {
-    top: 20px;
-    right: 20px;
+    top: 1.5rem;
+    right: 1.5rem;
     border-top: 1px solid var(--color-accent);
     border-right: 1px solid var(--color-accent);
-    padding: 5px 10px;
+    padding: 0.4rem 0.8rem;
 }
 
 .bottom-left {
-    bottom: 20px;
-    left: 20px;
+    bottom: 1.5rem;
+    left: 1.5rem;
     border-bottom: 1px solid var(--color-accent);
     border-left: 1px solid var(--color-accent);
-    padding: 5px 10px;
+    padding: 0.4rem 0.8rem;
 }
 
 .bottom-right {
-    bottom: 20px;
-    right: 20px;
+    bottom: 1.5rem;
+    right: 1.5rem;
     border-bottom: 1px solid var(--color-accent);
     border-right: 1px solid var(--color-accent);
-    padding: 5px 10px;
+    padding: 0.4rem 0.8rem;
 }
 
 .hud-data-feed {
     position: absolute;
-    bottom: 20px;
+    bottom: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
     color: rgba(255, 255, 255, 0.4);
@@ -314,13 +316,11 @@
     pointer-events: none;
 }
 
-
-
 .charts-view {
     flex: 1;
     display: flex;
-    padding: 15px;
-    gap: 15px;
+    padding: 1.5vh 1vw;
+    gap: 1vw;
     background-color: var(--color-panel);
 }
 
@@ -331,7 +331,7 @@
     border-radius: 4px;
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 0.8rem;
 }
 
 .chart-title {

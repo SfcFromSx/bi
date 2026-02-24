@@ -1,6 +1,6 @@
 .right-panel {
-    width: 25%;
-    min-width: 320px;
+    width: 25vw;
+    min-width: 280px;
     border-left: 1px solid var(--color-border);
     background-color: var(--color-panel);
     display: flex;
@@ -17,11 +17,11 @@
 }
 
 .panel-header {
-    padding: 10px 15px;
+    padding: 0.8rem 1vw;
     border-bottom: 1px solid var(--color-border);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0.5vw;
     font-weight: 600;
     font-size: 0.95rem;
     color: var(--color-text-primary);
@@ -30,8 +30,8 @@
 
 /* Strategic Directive */
 .directive-box {
-    margin: 8px 12px;
-    padding: 8px 12px;
+    margin: 0.5rem 0.8vw;
+    padding: 0.6rem 0.8vw;
     border: 1px solid var(--color-border);
     background: rgba(102, 252, 241, 0.05);
     border-radius: 4px;
@@ -56,17 +56,17 @@
 
 /* 2x2 Resource Grid */
 .resources-grid {
-    padding: 10px 15px;
+    padding: 0.8rem 1vw;
     border-bottom: 1px solid var(--color-border);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px 10px;
+    gap: 1.2rem 0.8vw;
 }
 
 .resource-item {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 0.2rem;
 }
 
 .resource-item.col-span-2 {
@@ -113,19 +113,19 @@
     font-size: 0.7rem;
     color: var(--color-border);
     letter-spacing: 2px;
-    margin-bottom: 10px;
+    margin-bottom: 0.6rem;
 }
 
 /* Directives & Actions (Grid) */
 .directives-section {
-    padding: 10px 15px;
+    padding: 0.8rem 1vw;
     border-bottom: 1px solid var(--color-border);
 }
 
 .directives-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 0.6vw;
 }
 
 /* Shared Button Styles */
@@ -134,14 +134,14 @@
     background: var(--color-bg);
     border: 1px solid var(--color-border);
     color: var(--color-text-primary);
-    border-radius: 6px;
-    padding: 8px;
+    border-radius: 4px;
+    padding: 0.6rem;
     font-family: inherit;
     font-size: 0.8rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 0.4rem;
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: center;
@@ -165,25 +165,25 @@
 }
 
 .primary-action-box {
-    padding: 10px 15px;
+    padding: 0.8rem 1vw;
     border-bottom: 1px solid var(--color-border);
 }
 
 /* Compact Upgrades (Horizontal Capsules) */
 .upgrades-section {
-    padding: 10px 15px;
+    padding: 0.8rem 1vw;
     flex: 1;
     /* Take remaining space */
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0.5rem;
 }
 
 .upgrade-capsule {
     background: var(--color-bg);
     border: 1px solid var(--color-border);
-    border-radius: 6px;
-    padding: 8px 12px;
+    border-radius: 4px;
+    padding: 0.6rem 0.8vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -218,12 +218,12 @@
     background: transparent;
     border: 1px solid var(--color-border);
     color: var(--color-text-primary);
-    padding: 4px 10px;
+    padding: 0.3rem 0.6rem;
     font-family: inherit;
     font-size: 0.75rem;
     cursor: pointer;
     border-radius: 2px;
-    min-width: 80px;
+    min-width: 5vw;
     transition: inherit;
 }
 
@@ -241,7 +241,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0.5rem;
     padding-right: 4px;
 }
 

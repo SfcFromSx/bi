@@ -1,6 +1,6 @@
 .left-panel {
-    width: 25%;
-    min-width: 300px;
+    width: 25vw;
+    min-width: 250px;
     border-right: 1px solid var(--color-border);
     background-color: var(--color-panel);
     display: flex;
@@ -8,11 +8,11 @@
 }
 
 .panel-header {
-    padding: 10px 15px;
+    padding: 0.8rem 1vw;
     border-bottom: 1px solid var(--color-border);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0.5vw;
     font-weight: 600;
     font-size: 0.95rem;
     color: var(--color-text-primary);
@@ -21,11 +21,11 @@
 
 .log-container {
     flex: 1;
-    padding: 10px;
+    padding: 0.8rem;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 0.3rem;
     font-family: 'Fira Code', monospace;
     font-size: 0.85rem;
 }

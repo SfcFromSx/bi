@@ -11,8 +11,10 @@
   --glow-accent: 0 0 8px rgba(102, 252, 241, 0.5);
   --glow-alert: 0 0 8px rgba(255, 59, 48, 0.5);
 
+  --top-bar-h: 6vh;
+
   font-family: 'Fira Code', 'Menlo', 'Monaco', 'Courier New', monospace;
-  font-size: 14px;
+  font-size: clamp(12px, 0.8vw, 16px);
   line-height: 1.5;
   font-weight: 400;
   letter-spacing: 0.3px;
@@ -55,7 +57,7 @@ body {
   flex: 1;
   display: flex;
   overflow: hidden;
-  height: calc(100vh - 60px);
+  height: calc(100vh - var(--top-bar-h));
   position: relative;
 }
 
